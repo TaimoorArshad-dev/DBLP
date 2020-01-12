@@ -8,9 +8,9 @@ import pymysql
 app = Flask(__name__)
 class Database:
     def __init__(self):
-        host = "35.232.130.107"
-        user = "testing123"
-        password = "testing123"
+        host = "localhost"
+        user = "user"
+        password = "pas"
         db = "dblp"
         self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.
                                    DictCursor)
@@ -99,7 +99,7 @@ def get_authors_for(formvalue):
     if formvalue:
         print(formvalue)
         print("inside get authors for")
-        engine = create_engine("mysql+mysqlconnector://testing123:testing123@35.232.130.107/dblp")
+        engine = create_engine("mysql+mysqlconnector://pas:user@localhost/dblp")
         con = engine.connect()
 
         con.execute(" SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))")
@@ -168,7 +168,7 @@ def get_authors_for(formvalue):
 
 def SearchCoauthorshipAndFor(xnumber,focus):
 
-    engine = create_engine("mysql+mysqlconnector://testing123:testing123@35.232.130.107/dblp")
+    engine = create_engine("mysql+mysqlconnector://user:pas@localhost/dblp")
     con = engine.connect()
     con.execute(" SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))")
     res2=con.execute(" SELECT id FROM dblp.`for` WHERE name=%s",focus)
@@ -367,7 +367,7 @@ def getnaiveClassification(stringin):
     z = y_pred_class[0].astype(str)
     z1 = str(z)
     from sqlalchemy import create_engine
-    engine = create_engine("mysql+mysqlconnector://testing123:testing123@35.232.130.107/dblp")
+    engine = create_engine("mysql+mysqlconnector://user:pas@localhost/dblp")
     con = engine.connect()
     res2 = con.execute("select name from `for` where id=%s", z1)
     result = res2.fetchall()
@@ -397,7 +397,7 @@ def getnaivefor(naiveforname,naiveforyear):
     model.fit(xtrain, ytrain)
     testing = xtrain.iloc[0]
     from sqlalchemy import create_engine
-    engine = create_engine("mysql+mysqlconnector://testing123:testing123@35.232.130.107/dblp")
+    engine = create_engine("mysql+mysqlconnector://user:pas@localhost/dblp")
     con = engine.connect()
     naiveforname = naiveforname
     res2 = con.execute("select id from `for` where name=%s", naiveforname)
