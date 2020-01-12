@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FAST(NUCES) DS(DBLP)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+
+        #mynetwork {
+  width: 1110px;
+  height: 400px;
+  border: 1px solid lightgray;
+}
+
+    </style>
+  
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top justify-content-end">
+  <a class="navbar-brand" href="dblp.png"><img src="../static/dblp.png" alt="DBLP Computer Science Bibilography"></a>
+   <a class="navbar-brand" href="dblp.png"><img src="../static/dblp.png" alt="DBLP Computer Science Bibilography"></a>
+    <a class="navbar-brand" href="dblp.png"><img src="../static/dblp.png" alt="DBLP Computer Science Bibilography"></a>
+     <a class="navbar-brand" href="dblp.png"><b>Author:</b></a>
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <button class="btn btn-success" type="submit">Search</button>
+  </form>
+</nav>
+<br>
+
+<div class="container">
+  <h2>DBLP Database</h2>
+  <p>Computer Science Bibilography</p>
+  <form action="/" >
+    <div class="form-group">
+      <label for="usr">Enter Author's Name</label>
+      <input type="text" class="form-control" name="authorname">
+      <br>
+      <button type="submit" class="btn btn-block btn-danger">Display Author's FoR</button>
+    </div>
+
+
+            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>FOR ID</th>
+        <th></th>
+        <th>Authors FOR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{authorsfor[0]}}</td>
+        <td></td>
+        <td>{{authorsfor[1]}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+
+
+ </form>
+  
+
+  </div>
+
+</div>
+
+
+
+<div class="container">
+<form method="get">
+ <div class="form-group">
+      <label for="sel1">Select Focus of Research:</label>
+      <select class="form-control" name="focus">
+           {% for i in row %}
+          <option value="{{i.name}}">{{i.name}}</option>
+           {% endfor %}
+
+        
+      </select>
+      <br>
+     
+     
+    </div>
+    <div class="form-group">
+      <label for="pwd">Number of Papers Published Together</label>
+      <input type="text" class="form-control" name="xnumber" placeholder="Must have published atlest this much # of papers together">
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-block btn-dark btn-info"><span class="glyphicon glyphicon-search"></span>Display Graph</button>
+
+    </div>
+</form>
+    <div class="row">
+
+  <div class="col-sm-8"> <div id="mynetwork"></div><pre id="eventSpan"></pre> </div>
+        <div class="col-sm-4"></div>
+
+</div>
+    <div class="row">
+     <!--   <img src="/static/books_read.png"> -->
+    </div>
+
+
+<div class="container">
+  <h2>Predict | Linear Regression:</h2>
+  <p>Number of Papers to be published in a selected journal or Conference</p>
+  <form action="/" >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6">
+
+      <select class="form-control form-group" name="journal">
+          <option value="NULL">Select Journal</option>
+           {% for i in journals %}
+          <option value="{{i.id}}">{{i.name}}</option>
+           {% endfor %}
+      </select>
+            </div>
+
+         <div class="col-sm-6">
+
+      <input type="text" class="form-control form-group" name="year" placeholder="Enter Year E.g 1996 e.t.c">
+
+            </div>
+
+
+
+      <button type="submit" class="btn btn-block btn-warning">Predict Number of Papers</button>
+
+        </div>
+
+          <div class="row">
+               <table class="table">
+    <thead>
+      <tr>
+        <th>Predicted Number of Papers</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{pred}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+          </div>
+
+
+
+
+    </div>
+</form>
+
+
+
+    <div class="container">
+  <h2>Predict | Naive Bayes:</h2>
+  <p>Number of Papers to be published in a selected journal or Conference</p>
+  <form action="/" >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6">
+
+      <select class="form-control form-group" name="naivejournal">
+          <option value="NULL">Select Journal</option>
+           {% for i in journals %}
+          <option value="{{i.id}}">{{i.name}}</option>
+           {% endfor %}
+      </select>
+            </div>
+
+         <div class="col-sm-6">
+
+      <input type="text" class="form-control form-group" name="naiveyear" placeholder="Enter Year E.g 1996 e.t.c">
+
+            </div>
+
+
+
+      <button type="submit" class="btn btn-block btn-warning">Predict Number of Papers</button>
+
+        </div>
+
+          <div class="row">
+               <table class="table">
+    <thead>
+      <tr>
+        <th>Predicted Number of Papers</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{naivepred}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+          </div>
+
+
+
+
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="container">
+  <h2>Classify | Naive Bayes Text Classification:</h2>
+  <p>Classify Focus of Research based on Paper Title</p>
+  <form action="/" >
+    <div class="form-group">
+        <div class="row">
+
+
+         <div class="col-sm-12">
+
+      <input type="text" class="form-control form-group" name="naiveclassify" placeholder="Enter Title of Paper">
+
+            </div>
+
+
+
+      <button type="submit" class="btn btn-block btn-primary">Classify FOR</button>
+
+        </div>
+
+          <div class="row">
+               <table class="table">
+    <thead>
+      <tr>
+        <th>Predicted FOR</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{naiveclassify}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+          </div>
+
+
+
+
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="container">
+  <h2>Predict | Naive Bayes FOR:</h2>
+  <p>Predict Number of Papers to be published in an FOR</p>
+  <form action="/" >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6">
+
+      <select class="form-control form-group" name="naiveforid">
+          <option value="NULL">Select Focus of Research</option>
+           {% for i in row %}
+          <option value="{{i.name}}">{{i.name}}</option>
+           {% endfor %}
+      </select>
+            </div>
+
+         <div class="col-sm-6">
+
+      <input type="text" class="form-control form-group" name="naiveforyear" placeholder="Enter Year">
+
+            </div>
+
+
+
+      <button type="submit" class="btn btn-block btn-success">Predict Number of Papers in FOR</button>
+
+        </div>
+
+          <div class="row">
+               <table class="table">
+    <thead>
+      <tr>
+        <th>Predicted Number of Papers</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{naivefor}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+          </div>
+
+
+
+
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+</div>
+</body>
+<script>
+var nodes = new vis.DataSet([
+    {% for j in nodes %}
+  { id: {{j[0]}}, label: "{{j[1]}}" },
+
+   {% endfor %}
+  { id: 5, label: "Network Initialized" }
+]);
+
+// create an array with edges
+var edges = new vis.DataSet([
+    {% for j in edges %}
+  { from: {{j[0]}}, to: {{j[1]}}, label: "{{j[2]}}" },
+    {% endfor %}
+  { from: 2, to: 5, label: "12" }
+]);
+
+// create a network
+var container = document.getElementById("mynetwork");
+var data = {
+  nodes: nodes,
+  edges: edges
+};
+var options = {};
+var network = new vis.Network(container, data, options);
+
+
+
+
+/*
+network.on("startStabilizing", function(params) {
+  document.getElementById("eventSpan").innerHTML =
+    "<h3>Starting Stabilization</h3>";
+  console.log("started");
+});
+network.on("stabilizationProgress", function(params) {
+  document.getElementById("eventSpan").innerHTML =
+    "<h3>Stabilization progress</h3>" + JSON.stringify(params, null, 4);
+  console.log("progress:", params);
+});
+
+network.on("stabilizationIterationsDone", function(params) {
+  document.getElementById("eventSpan").innerHTML =
+    "<h3>Stabilization iterations complete</h3>";
+  console.log("finished stabilization interations");
+});
+
+network.on("stabilized", function(params) {
+  document.getElementById("eventSpan").innerHTML =
+    "<h3>Stabilized!</h3>" + JSON.stringify(params, null, 4);
+  console.log("stabilized!", params);
+});
+*/
+
+    </script>
+</html>
