@@ -4,7 +4,7 @@ Flask==1.1.1
 Flask-MySQL==1.4.0
 Jinja2==2.10.3
 mysql-connector-python==8.0.18
-numpy==1.17.2
+numpy==1.22.0
 pandas==0.25.1
 PyMySQL==0.9.3
 scikit-image==0.15.0
